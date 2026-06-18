@@ -67,6 +67,25 @@ app.get("/", (req, res) => {
   res.redirect('/login.html');
 });
 
+//API status route
+app.get("/api/status", (req, res) => {
+  try {
+    const databaseStatus = mongoose.connection.readyState === 1 ? "connected" : "disconnected";
+
+    res.json({
+      message: "API status is healthy",
+      appName: "Profile Management API",
+      version: "1.0.0",
+      serverTime: new Date().toISOString(),
+      database: databaseStatus,
+      environment: process.env.NODE_ENV || "development"
+    });
+  }catch (error) {
+    res.status(500).json({ message: "Server error while checking API status." })
+  }
+});
+
+
 app.get('/api/version', (req, res) => {
   res.json({
     version: '1.0.0',
