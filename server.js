@@ -67,6 +67,15 @@ app.get("/", (req, res) => {
   res.redirect('/login.html');
 });
 
+app.get('/api/version', (req, res) => {
+  res.json({
+    version: '1.0.0',
+    message: 'Version control demo update',
+    updatedBy: 'SE_22025'
+  })
+})
+
+
 //API status route
 app.get("/api/status", (req, res) => {
   try {
